@@ -7,45 +7,45 @@
     <title></title>
 </head>
 <body>
-        <form runat="server">
-    <div>
-        Amount
-        <asp:TextBox ID="txtAmount" runat="server"></asp:TextBox>
-        <button type="button" id="btnCheckout" onclick="initiateCheckout()">Checkout</button>
-    <asp:Button ID="btnPay" runat="server" Text="Pay" OnClick="btnPay_Click1" />
-    </div>
+    <form id="form1" runat="server">
+        <div>
+            Amount
+    <asp:TextBox ID="txtAmount" runat="server"></asp:TextBox>
+            <button type="button" id="btnCheckout" onclick="initiateCheckout()">Checkout</button>
+            <asp:Button ID="btnPay" runat="server" Text="Pay" OnClick="btnPay_Click1" />
+        </div>
 
-    <script>
-        function initiateCheckout() {
-            var amountInCents = parseInt(document.getElementById('<%=txtAmount.ClientID%>').value) * 100;
+        <script>
+            function initiateCheckout() {
+                var amountInCents = parseInt(document.getElementById('<%=txtAmount.ClientID%>').value) * 100;
 
-            var stripe = Stripe('pk_test_51OXzjsSCVBWSmcnoMjbNZsDR0wrIbC2KYv8dX9GON478kF5MAQzshiEUSIbrJoZOiEuhbJhfYW5ZHJerA0WvvBN6001FK5jb4G'); // Replace with your actual publishable key
+                var stripe = Stripe('PublihableKey-From-Stripe-Dashbord'); // Replace with your actual publishable key
 
-            var checkoutHandler = StripeCheckout.configure({
-                key: 'pk_test_51OXzjsSCVBWSmcnoMjbNZsDR0wrIbC2KYv8dX9GON478kF5MAQzshiEUSIbrJoZOiEuhbJhfYW5ZHJerA0WvvBN6001FK5jb4G', // Replace with your actual publishable key
-                locale: 'auto',
-                token: function (token) {
-                    // Append the token to the form data
-                    var form = document.forms[0];
-                    var hiddenField = document.createElement('input');
-                    hiddenField.type = 'hidden';
-                    hiddenField.name = 'token';
-                    hiddenField.value = token.id;
-                    form.appendChild(hiddenField);
+                var checkoutHandler = StripeCheckout.configure({
+                    key: 'PublihKey-From-Stripe-Dashbord', // Replace with your actual publishable key
+                    locale: 'auto',
+                    token: function (token) {
+                        // Append the token to the form data
+                        var form = document.forms[0];
+                        var hiddenField = document.createElement('input');
+                        hiddenField.type = 'hidden';
+                        hiddenField.name = 'token';
+                        hiddenField.value = token.id;
+                        form.appendChild(hiddenField);
 
-                    // Continue with the payment process (e.g., form submission)
-                    form.submit();
-                }
-            });
+                        // Continue with the payment process (e.g., form submission)
+                        form.submit();
+                    }
+                });
 
-            checkoutHandler.open({
-                name: 'Your Company Name',
-                description: 'Payment for services',
-                currency: 'usd', // Replace with your currency code if different
-                amount: amountInCents,
-            });
-        }
-    </script>
-</form>
+                checkoutHandler.open({
+                    name: 'Your Company Name',
+                    description: 'Payment for services',
+                    currency: 'usd', // Replace with your currency code if different
+                    amount: amountInCents,
+                });
+            }
+        </script>
+    </form>
 </body>
 </html>
