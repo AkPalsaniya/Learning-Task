@@ -1,0 +1,2 @@
+1. Find the second highest salary: Write a query to retrieve the second-highest salary from the "Employees" table.
+   SELECT Max(salary) FROM employees WHERE salary NOT IN (SELECT Max(salary) FROM employees)
